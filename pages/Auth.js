@@ -21,7 +21,7 @@ export const Auth = {
                 <div class="text-center mb-10">
                     <button onclick="window.router.navigate('/')"
                         class="text-4xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-primary to-secondary font-headline">
-                        Inkbound
+                        KA cave
                     </button>
                     <p class="text-outline italic mt-2 text-lg">${isLogin ? 'Welcome back, Architect.' : 'Join the collective.'}</p>
                 </div>
@@ -66,7 +66,7 @@ export const Auth = {
                             <label class="block text-[10px] font-black uppercase tracking-widest text-outline mb-2">Email</label>
                             <input id="email" type="email" required
                                 class="w-full bg-surface-container-lowest rounded-2xl px-5 py-4 text-on-surface font-bold border-none focus:ring-2 focus:ring-primary/40 transition-all"
-                                placeholder="you@inkbound.art" autocomplete="email"/>
+                                placeholder="you@kacave.com" autocomplete="email"/>
                         </div>
 
                         <div>

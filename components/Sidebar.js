@@ -17,7 +17,7 @@ export const Sidebar = () => {
             <span class="material-symbols-outlined font-black">auto_stories</span>
         </div>
         <div>
-            <h2 class="text-xl font-bold text-primary leading-none tracking-tighter">Inkbound</h2>
+            <h2 class="text-xl font-bold text-primary leading-none tracking-tighter">KA cave</h2>
             <p class="text-[10px] uppercase tracking-widest text-outline font-bold">Atelier Studio</p>
         </div>
     </div>

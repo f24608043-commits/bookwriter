@@ -9,7 +9,7 @@ export const Home = {
         const continueReading = user ? await BookService.getContinueReading(user.id) : [];
 
         const featured = books[0] || { 
-            title: 'Inkbound Digital Atelier', 
+            title: 'KA cave Digital Atelier', 
             description: 'Where digital ink strands and visual narrative boards collide.', 
             cover_url: '/images/image_4.webp' 
         };

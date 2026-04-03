@@ -3,7 +3,7 @@ export const Moderation = {
 <div class="max-w-6xl mx-auto px-6 py-12">
     <header class="mb-12 flex flex-col items-center text-center">
         <h1 class="font-headline font-bold text-5xl text-on-surface tracking-tighter mb-4 italic text-emerald-400 font-sans">GUARDIAN <span class="text-on-surface not-italic">CENTRAL</span></h1>
-        <p class="font-body text-outline max-w-2xl">Ensuring the Inkbound Atelier remains a sanctuary for true creative expression. 🛡️</p>
+        <p class="font-body text-outline max-w-2xl">Ensuring the KA cave Atelier remains a sanctuary for true creative expression. 🛡️</p>
     </header>
 
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-12">

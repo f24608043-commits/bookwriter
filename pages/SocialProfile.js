@@ -51,7 +51,7 @@ export const SocialProfile = {
                 </div>
                 <div>
                     <h1 class="font-headline font-black text-6xl text-on-surface tracking-tighter mb-2 leading-none">${author.display_name || 'The Architect'}</h1>
-                    <p class="font-body italic text-2xl text-primary/80 mb-6">@${author.username || 'inkbound'}</p>
+                    <p class="font-body italic text-2xl text-primary/80 mb-6">@${author.username || 'kacave'}</p>
                     <div class="flex gap-6 justify-center">
                         <div class="bg-surface-container p-6 rounded-[2rem] min-w-[120px] shadow-lg border border-outline-variant/10">
                             <p class="text-[10px] font-black text-outline uppercase tracking-widest mb-1">Followers</p>
