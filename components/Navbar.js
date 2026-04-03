@@ -6,7 +6,7 @@ export const Navbar = () => {
     return `
     <div class="flex items-center gap-6 px-6">
         <button class="text-2xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-primary to-secondary"
-            onclick="window.router.navigate('/')">Inkbound</button>
+            onclick="window.router.navigate('/')">KA cave</button>
         <div class="hidden md:flex gap-6 text-sm font-bold">
             <button class="text-outline hover:text-on-surface transition-all" onclick="window.router.navigate('/browse')">Explore</button>
             <button class="text-outline hover:text-primary transition-all" onclick="window.router.navigate('/editor')">Write</button>
