@@ -11,8 +11,14 @@ const {
   getBookById,
   updateBook,
   deleteBook,
+  createChapter,
+  getChapters,
+  getChapterById,
+  updateChapter,
+  deleteChapter,
   getProfile,
   updateProfile,
+  getUserBooks,
 } = require('./services');
 
 const app = express();
@@ -30,10 +36,18 @@ app.post('/auth/signout', signOut);
 
 // Book routes
 app.get('/books', getBooks);
+app.get('/books/my', getUserBooks);
 app.get('/books/:id', getBookById);
 app.post('/books', authenticateToken, createBook);
 app.put('/books/:id', authenticateToken, updateBook);
 app.delete('/books/:id', authenticateToken, deleteBook);
+
+// Chapter routes
+app.get('/chapters', getChapters);
+app.get('/chapters/:id', getChapterById);
+app.post('/chapters', authenticateToken, createChapter);
+app.put('/chapters/:id', authenticateToken, updateChapter);
+app.delete('/chapters/:id', authenticateToken, deleteChapter);
 
 // Profile routes
 app.get('/profiles/:userId', getProfile);

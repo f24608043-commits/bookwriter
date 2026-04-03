@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Works - BookWriter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles/global.css">
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/" class="text-2xl font-bold text-indigo-600">BookWriter</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="/" class="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">
+                        Home
+                    </a>
+                    <a href="/browse.html" class="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">
+                        Browse
+                    </a>
+                    <a href="/my-works.html" class="text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">
+                        My Works
+                    </a>
+                    <button id="logoutBtn" class="bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-red-700">
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">My Works</h1>
+            <a href="/create-book.html" class="bg-indigo-600 text-white px-6 py-2 rounded-md font-medium hover:bg-indigo-700 transition">
+                Create New Book
+            </a>
+        </div>
+
+        <!-- Filters and Stats -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <div class="flex flex-wrap gap-4 items-center">
+                <div class="flex items-center space-x-2">
+                    <label class="text-sm font-medium text-gray-700">Filter:</label>
+                    <select id="statusFilter" class="form-input w-32">
+                        <option value="all">All Books</option>
+                        <option value="published">Published</option>
+                        <option value="draft">Drafts</option>
+                    </select>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <label class="text-sm font-medium text-gray-700">Sort:</label>
+                    <select id="sortFilter" class="form-input w-32">
+                        <option value="updated">Last Updated</option>
+                        <option value="created">Date Created</option>
+                        <option value="title">Title</option>
+                    </select>
+                </div>
+                <div class="ml-auto text-sm text-gray-600">
+                    <span id="bookCount">0</span> books
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading State -->
+        <div id="loadingState" class="hidden">
+            <div class="flex justify-center items-center py-12">
+                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+                <span class="ml-3 text-gray-600">Loading your books...</span>
+            </div>
+        </div>
+
+        <!-- Books Grid -->
+        <div id="booksGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Books will be loaded here -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="hidden text-center py-12">
+            <div class="bg-gray-100 rounded-full p-4 w-16 h-16 mx-auto mb-4">
+                <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+            </div>
+            <h3 class="text-lg font-medium text-gray-900 mb-2">No books yet</h3>
+            <p class="text-gray-600 mb-6">Start your writing journey by creating your first book.</p>
+            <a href="/create-book.html" class="bg-indigo-600 text-white px-6 py-2 rounded-md font-medium hover:bg-indigo-700 transition">
+                Create Your First Book
+            </a>
+        </div>
+
+        <!-- Pagination -->
+        <div id="pagination" class="flex justify-center items-center space-x-2 mt-8">
+            <!-- Pagination will be loaded here -->
+        </div>
+    </main>
+
+    <!-- Book Card Template -->
+    <template id="bookCardTemplate">
+        <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200">
+            <div class="relative">
+                <img class="w-full h-48 object-cover rounded-t-lg loading="lazy" data-src="" alt="">
+                <div class="absolute top-2 right-2">
+                    <span class="status-badge px-2 py-1 text-xs font-medium rounded-full">
+                        <!-- Status will be inserted here -->
+                    </span>
+                </div>
+            </div>
+            <div class="p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-2 truncate"></h3>
+                <p class="text-gray-600 text-sm mb-4 line-clamp-2"></p>
+                <div class="flex items-center justify-between text-sm text-gray-500 mb-4">
+                    <span class="chapters-count">0 chapters</span>
+                    <span class="updated-date">Updated recently</span>
+                </div>
+                <div class="flex space-x-2">
+                    <button class="edit-btn flex-1 bg-indigo-600 text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-indigo-700 transition">
+                        Edit
+                    </button>
+                    <button class="delete-btn bg-red-600 text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-red-700 transition">
+                        Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script src="scripts/main.js"></script>
+    <script src="scripts/image-optimizer.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            let currentPage = 1;
+            let currentFilter = 'all';
+            let currentSort = 'updated';
+            let books = [];
+
+            // Load user books
+            async function loadBooks(page = 1, filter = 'all', sort = 'updated') {
+                const loadingState = document.getElementById('loadingState');
+                const booksGrid = document.getElementById('booksGrid');
+                const emptyState = document.getElementById('emptyState');
+                
+                loadingState.classList.remove('hidden');
+                booksGrid.classList.add('hidden');
+                emptyState.classList.add('hidden');
+
+                try {
+                    const response = await api.get(`/books/my?page=${page}&limit=12&filter=${filter}&sort=${sort}`);
+                    books = response.books || [];
+                    
+                    loadingState.classList.add('hidden');
+                    
+                    if (books.length === 0) {
+                        emptyState.classList.remove('hidden');
+                        document.getElementById('bookCount').textContent = '0';
+                    } else {
+                        booksGrid.classList.remove('hidden');
+                        renderBooks(books);
+                        document.getElementById('bookCount').textContent = books.length;
+                    }
+                } catch (error) {
+                    showToast(error.message || 'Failed to load books', 'error');
+                    loadingState.classList.add('hidden');
+                }
+            }
+
+            // Render books
+            function renderBooks(booksToRender) {
+                const booksGrid = document.getElementById('booksGrid');
+                const template = document.getElementById('bookCardTemplate');
+                
+                booksGrid.innerHTML = '';
+                
+                booksToRender.forEach(book => {
+                    const clone = template.content.cloneNode(true);
+                    const card = clone.querySelector('.bg-white');
+                    
+                    // Set book data
+                    const img = card.querySelector('img');
+                    img.dataset.src = book.cover_url || '/images/default-book-cover.jpg';
+                    img.alt = book.title;
+                    
+                    const title = card.querySelector('h3');
+                    title.textContent = book.title;
+                    
+                    const description = card.querySelector('p');
+                    description.textContent = book.description || 'No description available';
+                    
+                    const statusBadge = card.querySelector('.status-badge');
+                    statusBadge.textContent = book.published ? 'Published' : 'Draft';
+                    statusBadge.className = `status-badge px-2 py-1 text-xs font-medium rounded-full ${
+                        book.published 
+                            ? 'bg-green-100 text-green-800' 
+                            : 'bg-yellow-100 text-yellow-800'
+                    }`;
+                    
+                    const chaptersCount = card.querySelector('.chapters-count');
+                    chaptersCount.textContent = `${book.chapters_count || 0} chapters`;
+                    
+                    const updatedDate = card.querySelector('.updated-date');
+                    const date = new Date(book.updated_at);
+                    updatedDate.textContent = `Updated ${date.toLocaleDateString()}`;
+                    
+                    // Add event listeners
+                    const editBtn = card.querySelector('.edit-btn');
+                    editBtn.onclick = () => {
+                        window.location.href = `/editor.html?book=${book.id}`;
+                    };
+                    
+                    const deleteBtn = card.querySelector('.delete-btn');
+                    deleteBtn.onclick = () => {
+                        deleteBook(book.id, book.title);
+                    };
+                    
+                    booksGrid.appendChild(card);
+                });
+
+                // Initialize lazy loading for new images
+                if (window.LazyImageLoader) {
+                    const lazyLoader = new LazyImageLoader();
+                    lazyLoader.init();
+                }
+            }
+
+            // Filter and sort handlers
+            document.getElementById('statusFilter').addEventListener('change', (e) => {
+                currentFilter = e.target.value;
+                currentPage = 1;
+                loadBooks(currentPage, currentFilter, currentSort);
+            });
+
+            document.getElementById('sortFilter').addEventListener('change', (e) => {
+                currentSort = e.target.value;
+                currentPage = 1;
+                loadBooks(currentPage, currentFilter, currentSort);
+            });
+
+            // Logout handler
+            document.getElementById('logoutBtn').addEventListener('click', () => {
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                window.location.href = '/';
+            });
+
+            // Initial load
+            await loadBooks();
+        });
+    </script>
+</body>
+</html>

@@ -129,24 +129,6 @@ const updateBook = async (req, res) => {
   }
 };
 
-const deleteBook = async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    const { error } = await supabase
-      .from('books')
-      .delete()
-      .eq('id', id);
-
-    if (error) {
-      return res.status(400).json({ error: error.message });
-    }
-
-    res.json({ message: 'Book deleted successfully' });
-  } catch (error) {
-    res.status(500).json({ error: 'Server error' });
-  }
-};
 
 // Profile services
 const getProfile = async (req, res) => {
@@ -196,12 +178,100 @@ const updateProfile = async (req, res) => {
   }
 };
 
+const deleteBook = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const { data, error } = await supabase.rpc('delete_book', {
+      p_book_id: id,
+    });
+
+    if (error) {
+      return res.status(400).json({ error: error.message });
+    }
+
+    if (!data.success) {
+      return res.status(400).json({ error: data.message });
+    }
+
+    // Delete cover image from storage if exists
+    if (data.message && data.message !== 'Book not found') {
+      try {
+        const coverPath = data.message.split('/').pop();
+        if (coverPath) {
+          const { error: storageError } = await supabaseAdmin.storage
+            .from('book-covers')
+            .remove([coverPath]);
+          
+          if (storageError) {
+            console.warn('Failed to delete cover image:', storageError.message);
+          }
+        }
+      } catch (storageError) {
+        console.warn('Storage deletion error:', storageError);
+      }
+    }
+
+    res.json({ message: 'Book deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
+const deleteChapter = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const { data, error } = await supabase.rpc('delete_chapter', {
+      p_chapter_id: id,
+    });
+
+    if (error) {
+      return res.status(400).json({ error: error.message });
+    }
+
+    if (!data.success) {
+      return res.status(400).json({ error: data.message });
+    }
+
+    res.json({ message: 'Chapter deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
+const getUserBooks = async (req, res) => {
+  const { page = 1, limit = 20 } = req.query;
+  const offset = (page - 1) * limit;
+
+  try {
+    const { data, error } = await supabase.rpc('get_user_books', {
+      p_limit: parseInt(limit),
+      p_offset: offset,
+    });
+
+    if (error) {
+      return res.status(400).json({ error: error.message });
+    }
+
+    res.json({ books: data });
+  } catch (error) {
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
 module.exports = {
   createBook,
   getBooks,
   getBookById,
   updateBook,
   deleteBook,
+  createChapter,
+  getChapters,
+  getChapterById,
+  updateChapter,
+  deleteChapter,
   getProfile,
   updateProfile,
+  getUserBooks,
 };
