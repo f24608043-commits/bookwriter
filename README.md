@@ -1,4 +1,4 @@
-# BookWriter
+# KA cave
 
 A modern web application for creating, reading, and managing digital books with collaborative features.
 
@@ -38,7 +38,7 @@ A modern web application for creating, reading, and managing digital books with 
 1. Clone the repository:
 ```bash
 git clone https://github.com/f24608043-commits/bookwriter.git
-cd bookwriter
+cd ka-cave
 ```
 
 2. Install dependencies:
@@ -85,7 +85,7 @@ NODE_ENV=development
 ## Project Structure
 
 ```
-bookwriter/
+ka-cave/
 ├── backend/                 # Backend API services
 │   ├── auth.js             # Authentication logic
 │   ├── services.js         # Business logic services
@@ -121,3 +121,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Support
 
 For support and questions, please open an issue on GitHub.
+
+---
+
+**🎉 KA cave - Your modern platform for digital storytelling!**
