@@ -3,11 +3,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --primary-color: #111827;
-  --primary-hover: #374151;
-  --secondary-color: #6b7280;
+  --primary-color: #ffffff;
+  --primary-hover: #f3f4f6;
+  --secondary-color: #9ca3af;
   --success-color: #10b981;
-  --warning-color: #f59e0b;
+  --warning-color: #6b7280;
   --error-color: #ef4444;
   --text-primary: #111827;
   --text-secondary: #6b7280;
@@ -126,7 +126,7 @@ a:hover {
 .form-input:focus {
   outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.1);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
 }
 
 .form-textarea {

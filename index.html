@@ -87,18 +87,32 @@
     <footer class="bg-gray-800 text-white py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
-                <p>&copy; 2024 BookWriter. All rights reserved.</p>
+                <p>&copy; 2024 KA cave. All rights reserved.</p>
                 <div class="mt-4 space-x-4">
-                    <a href="#" class="hover:text-indigo-400">About</a>
-                    <a href="#" class="hover:text-indigo-400">Privacy</a>
-                    <a href="#" class="hover:text-indigo-400">Terms</a>
-                    <a href="#" class="hover:text-indigo-400">Contact</a>
+                    <a href="#" class="hover:text-gray-400">About</a>
+                    <a href="#" class="hover:text-gray-400">Privacy</a>
+                    <a href="#" class="hover:text-gray-400">Terms</a>
+                    <a href="#" class="hover:text-gray-400">Contact</a>
                 </div>
             </div>
         </div>
     </footer>
 
     <script src="scripts/main.js"></script>
-    <script src="scripts/image-optimizer.js"></script>
+    <script src="scripts/performance-optimizer.js"></script>
+    <script>
+        // Register Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('Service Worker registered');
+                    })
+                    .catch(error => {
+                        console.log('Service Worker registration failed:', error);
+                    });
+            });
+        }
+    </script>
 </body>
 </html>

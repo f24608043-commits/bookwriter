@@ -399,7 +399,7 @@ export const Editor = {
                     const file = e.target.files[0];
                     if (!file || !currentBook) return;
                     isUploading = true;
-                    showStatus(statusEl, 'Uploading image...', '#f59e0b');
+                    showStatus(statusEl, 'Uploading image...', '#6b7280');
                     try {
                         const path = `manuscript/${currentBook.id}/${Date.now()}.${file.name.split('.').pop()}`;
                         const url = await StorageService.uploadImage(file, path);
@@ -472,7 +472,7 @@ export const Editor = {
                 const file = e.target.files[0];
                 if (!file) return;
                 isUploading = true;
-                showStatus(statusEl, 'Uploading cover...', '#f59e0b');
+                showStatus(statusEl, 'Uploading cover...', '#6b7280');
                 try {
                     const path = `covers/${currentBook.id}/${Date.now()}.${file.name.split('.').pop()}`;
                     const url = await StorageService.uploadImage(file, path);
